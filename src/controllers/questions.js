@@ -2,7 +2,7 @@ import questionModel from "../models/question.js";
 
 const POST_QUESTION = async (req, res) => {
   try {
-    const parsedDate = new Date(req.body.date);
+    // const parsedDate = new Date(req.body.date);
     const question = new questionModel({
       title: req.body.title,
       question_text: req.body.question_text,

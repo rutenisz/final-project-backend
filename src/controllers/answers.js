@@ -3,16 +3,17 @@ import questionModel from "../models/question.js";
 
 const GET_ANSWERS_BY_QUESTION_ID = async (req, res) => {
   try {
-    const questions = await questionModel.findOne({ _id: req.params.id });
-    const answers = await answerModel.find({ question_id: req.params.id });
+    const questions = await questionModel.findOne({ _id: req.params.id }); //suranda klausima pagal id
+    const answers = await answerModel.find({ question_id: req.params.id }); // suranda visus atsakymus pagal questionid
 
     const question_with_answers = {
+      // objekto sukurimas
       questions: questions,
       answers: answers,
     };
     return res
       .status(200)
-      .json({ question_with_answers: question_with_answers });
+      .json({ question_with_answers: question_with_answers }); // grazina objekta su objekto key
   } catch (err) {
     console.log("Error:", err);
     return res.status(500).json({ message: "Error happened getting answers" });
@@ -21,13 +22,14 @@ const GET_ANSWERS_BY_QUESTION_ID = async (req, res) => {
 
 const POST_ANSWER_TO_QUESTION = async (req, res) => {
   try {
-    const parsedDate = new Date(req.body.date);
+    // const parsedDate = new Date(req.body.date);
     const answer = new answerModel({
       question_id: req.body.question_id,
       answer_text: req.body.answer_text,
-      date: parsedDate,
       gained_likes_number: req.body.gained_likes_number,
     });
+
+    //   date: parsedDate,
 
     const response = await answer.save();
     console.log(answer);
